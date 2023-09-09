@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:xyz_cart/interceptors/auth_interceptor.dart';
 import 'package:xyz_cart/services/api_handler.dart';
 
 class AuthService {
@@ -6,6 +7,7 @@ class AuthService {
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     try {
+      _apiHandler.dio.interceptors.add(AuthInterceptor());
       final response = await _apiHandler.dio.post(
         '/api/v2/auth/login',
         data: {

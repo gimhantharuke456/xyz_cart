@@ -15,8 +15,12 @@ class AuthInterceptor extends Interceptor {
       final statusCode = err.response?.statusCode;
 
       if (statusCode == 401) {
+        throw Error.safeToString(err.response?.statusMessage);
       } else if (statusCode == 403) {
-      } else if (statusCode == 500) {}
+        throw Error.safeToString(err.response?.statusMessage);
+      } else if (statusCode == 500) {
+        throw Error.safeToString(err.response?.statusMessage);
+      }
     } else {}
 
     super.onError(err, handler);
