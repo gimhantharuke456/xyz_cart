@@ -8,14 +8,18 @@ class ApiHandler {
   factory ApiHandler() {
     return _instance;
   }
-  Dio get dio => Dio(
-        BaseOptions(
-          baseUrl: 'https://api.example.com',
-          connectTimeout: const Duration(seconds: 5000),
-          receiveTimeout: const Duration(seconds: 5000),
-          headers: {
-            'Accept': 'application/json',
-          },
-        ),
-      );
+  Dio get dio {
+    final Dio dio = Dio(
+      BaseOptions(
+        baseUrl: 'https://api.example.com',
+        connectTimeout: const Duration(seconds: 5000),
+        receiveTimeout: const Duration(seconds: 5000),
+        headers: {
+          'Accept': 'application/json',
+        },
+      ),
+    );
+
+    return dio;
+  }
 }

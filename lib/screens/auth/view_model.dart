@@ -10,8 +10,7 @@ class ViewModel {
   String email = "";
   String password = "";
   void handleLoginButtonPress() {
-    print(email);
-    // final authProvider = Provider.of<AuthProvider>(context!, listen: false);
-    // authProvider.login(email, password);
+    final authProvider = Provider.of<AuthProvider>(context!, listen: false);
+    authProvider.login(email, password);
   }
 }
