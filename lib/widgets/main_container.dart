@@ -9,7 +9,7 @@ class MainContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.all(defaultPadding * 4),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: child,
