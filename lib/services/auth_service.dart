@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:xyz_cart/interceptors/auth_interceptor.dart';
 import 'package:xyz_cart/models/token_container.dart';
 import 'package:xyz_cart/services/api_handler.dart';
@@ -17,16 +16,15 @@ class AuthService {
           'remember_me': 1,
           'system_user': 1,
         },
-        options: Options(headers: {'Tz': 'Europe/London'}),
       );
 
       if (response.statusCode == 200) {
-        return response.data;
+        return TokenContainer.fromJson(response.data);
       } else {
         throw Exception('Authentication failed');
       }
     } catch (e) {
-      throw Exception('Network error');
+      throw Exception('Network error $e');
     }
   }
 }

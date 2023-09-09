@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:xyz_cart/utils/constants.dart';
 
 class ApiHandler {
   ApiHandler._();
@@ -14,9 +15,7 @@ class ApiHandler {
         baseUrl: baseUrl,
         connectTimeout: const Duration(seconds: 5000),
         receiveTimeout: const Duration(seconds: 5000),
-        headers: {
-          'Accept': 'application/json',
-        },
+        headers: {'Accept': 'application/json', "Tz": "Europe/London"},
       ),
     );
 

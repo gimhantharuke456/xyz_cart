@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:xyz_cart/providers/auth_provider.dart';
 import 'package:xyz_cart/providers/loadin_provider.dart';
 import 'package:xyz_cart/utils/mixins.dart';
@@ -24,6 +22,7 @@ class ViewModel {
     loadinProvider!.updateBoolState(true);
     try {
       await authProvider!.login(email, password);
+      print(authProvider!.userData?.accessToken);
     } catch (e) {
       loaginDelegate!.showSnackbar("Error login $e");
     }
