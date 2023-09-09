@@ -28,6 +28,7 @@ class AuthInterceptor extends Interceptor {
               queryParameters: request.queryParameters,
               options: Options(
                 method: request.method,
+                headers: request.headers,
               ),
             );
 
