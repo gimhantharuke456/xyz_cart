@@ -105,8 +105,8 @@ class _LoginScreenState extends State<LoginScreen> with LoginDelegate {
                 color: primaryColor,
                 minWidth: MediaQuery.of(context).size.width,
                 onPressed: () async {
-                  _emailController.text = "qaapp2@yopmail.com";
-                  _passwordController.text = "12345678";
+                  // _emailController.text = "qaapp2@yopmail.com";
+                  // _passwordController.text = "12345678";
                   if (_key.currentState!.validate()) {
                     _viewModel.email = _emailController.text;
                     _viewModel.password = _passwordController.text;
