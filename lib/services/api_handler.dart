@@ -11,7 +11,7 @@ class ApiHandler {
   Dio get dio {
     final Dio dio = Dio(
       BaseOptions(
-        baseUrl: 'https://api.example.com',
+        baseUrl: baseUrl,
         connectTimeout: const Duration(seconds: 5000),
         receiveTimeout: const Duration(seconds: 5000),
         headers: {

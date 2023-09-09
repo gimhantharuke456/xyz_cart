@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:xyz_cart/providers/auth_provider.dart';
+import 'package:xyz_cart/providers/loadin_provider.dart';
 import 'package:xyz_cart/screens/auth/view_model.dart';
 import 'package:xyz_cart/utils/app_texts.dart';
 import 'package:xyz_cart/utils/constants.dart';
+import 'package:xyz_cart/utils/index.dart';
 import 'package:xyz_cart/widgets/custom_input_field.dart';
 import 'package:xyz_cart/widgets/main_container.dart';
 
@@ -12,14 +16,22 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with LoginDelegate {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late LoadinProvider _loadingProvider;
+  late AuthProvider _authProvider;
   final _key = GlobalKey<FormState>();
   late ViewModel _viewModel;
   @override
   void initState() {
-    _viewModel = ViewModel(context: context);
+    _loadingProvider = Provider.of<LoadinProvider>(context, listen: false);
+    _authProvider = Provider.of<AuthProvider>(context, listen: false);
+    _viewModel = ViewModel(
+        loaginDelegate: this,
+        loadinProvider: _loadingProvider,
+        authProvider: _authProvider);
+
     super.initState();
   }
 
@@ -124,5 +136,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void showSnackbar(String? message,
+      [Function? completion, Duration duration = const Duration(seconds: 4)]) {
+    context.showSnackBar(message);
   }
 }
