@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:xyz_cart/providers/auth_provider.dart';
 import 'package:xyz_cart/screens/auth/login_screen.dart';
+import 'package:xyz_cart/services/auth_service.dart';
 import 'package:xyz_cart/utils/app_theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  final AuthService authService = AuthService();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthProvider>(
+          create: (_) => AuthProvider(authService),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
