@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xyz_cart/screens/profile/profile_screen.dart';
 import 'package:xyz_cart/utils/constants.dart';
 import 'package:xyz_cart/widgets/item_card.dart';
 import 'package:xyz_cart/widgets/main_container.dart';
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(),
         Container(),
         Container(),
-        Container(),
+        const ProfileScreen(),
       ];
   @override
   Widget build(BuildContext context) {
