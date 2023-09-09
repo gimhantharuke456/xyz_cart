@@ -28,9 +28,7 @@ class _LoginScreenState extends State<LoginScreen> with LoginDelegate {
     _loadingProvider = Provider.of<LoadinProvider>(context, listen: false);
     _authProvider = Provider.of<AuthProvider>(context, listen: false);
     _viewModel = ViewModel(
-        loaginDelegate: this,
-        loadinProvider: _loadingProvider,
-        authProvider: _authProvider);
+        lDelegate: this, lProvider: _loadingProvider, aProvider: _authProvider);
 
     super.initState();
   }
@@ -106,13 +104,13 @@ class _LoginScreenState extends State<LoginScreen> with LoginDelegate {
               MaterialButton(
                 color: primaryColor,
                 minWidth: MediaQuery.of(context).size.width,
-                onPressed: () {
+                onPressed: () async {
                   _emailController.text = "qaapp2@yopmail.com";
                   _passwordController.text = "12345678";
                   if (_key.currentState!.validate()) {
                     _viewModel.email = _emailController.text;
                     _viewModel.password = _passwordController.text;
-                    _viewModel.handleLoginButtonPress();
+                    await _viewModel.handleLoginButtonPress();
                   }
                 },
                 child: const Text(logginButtonText),

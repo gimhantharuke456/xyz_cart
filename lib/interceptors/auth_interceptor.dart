@@ -14,13 +14,12 @@ class AuthInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response != null) {
       final statusCode = err.response?.statusCode;
-      final LocalPreferences _localPreferences = LocalPreferences.instance;
+      final LocalPreferences localPreferences = LocalPreferences.instance;
       if (statusCode == 401) {
         final request = err.requestOptions;
-        final newAccessToken = await _localPreferences.getrefreshToken();
+        final newAccessToken = await localPreferences.getrefreshToken();
         if (newAccessToken != null) {
           try {
-            // Retry the request with the new access token
             final dio = Dio();
             final response = await dio.request<dynamic>(
               request.path,

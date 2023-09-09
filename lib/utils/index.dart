@@ -29,3 +29,7 @@ extension DateTimeExtension on DateTime {
     return formatter.format(toLocal());
   }
 }
+
+void navigator(BuildContext context, Widget child) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => child));
+}

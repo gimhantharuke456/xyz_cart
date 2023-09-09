@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:xyz_cart/providers/auth_provider.dart';
 import 'package:xyz_cart/providers/loadin_provider.dart';
-import 'package:xyz_cart/screens/auth/login_screen.dart';
+
+import 'package:xyz_cart/screens/main_container.dart';
 import 'package:xyz_cart/services/auth_service.dart';
+import 'package:xyz_cart/services/local_prefs.dart';
 import 'package:xyz_cart/utils/app_theme.dart';
 import 'package:provider/provider.dart';
-import 'package:xyz_cart/widgets/loading.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final AuthService authService = AuthService();
+  final LocalPreferences localPreferences = LocalPreferences.instance;
+  await localPreferences.init();
   runApp(
     MultiProvider(
       providers: [
@@ -32,18 +36,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late LoadinProvider _loadingProvider;
-  @override
-  void initState() {
-    _loadingProvider = Provider.of<LoadinProvider>(context, listen: false);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "XYZ Cart",
-      home: _loadingProvider.isLoading ? const Loading() : const LoginScreen(),
+      home: const MainContainer(),
       theme: appTheme,
     );
   }

@@ -1,5 +1,6 @@
 import 'package:xyz_cart/providers/auth_provider.dart';
 import 'package:xyz_cart/providers/loadin_provider.dart';
+import 'package:xyz_cart/services/local_prefs.dart';
 import 'package:xyz_cart/utils/mixins.dart';
 
 mixin LoginDelegate implements SnackbarMixin {}
@@ -8,24 +9,29 @@ class ViewModel {
   LoginDelegate? loaginDelegate;
   LoadinProvider? loadinProvider;
   AuthProvider? authProvider;
+  final LocalPreferences _localPreferences = LocalPreferences.instance;
   ViewModel(
-      {required LoginDelegate loaginDelegate,
-      required LoadinProvider loadinProvider,
-      required AuthProvider authProvider}) {
-    this.loaginDelegate = loaginDelegate;
-    this.loadinProvider = loadinProvider;
-    this.authProvider = authProvider;
+      {required LoginDelegate lDelegate,
+      required LoadinProvider lProvider,
+      required AuthProvider aProvider}) {
+    loaginDelegate = lDelegate;
+    loadinProvider = lProvider;
+    authProvider = aProvider;
   }
   String email = "";
   String password = "";
-  void handleLoginButtonPress() async {
+  Future<bool> handleLoginButtonPress() async {
     loadinProvider!.updateBoolState(true);
     try {
       await authProvider!.login(email, password);
-      print(authProvider!.userData?.accessToken);
+      if (authProvider!.userData != null) {
+        _localPreferences.setToken(authProvider!.userData!.accessToken);
+        return true;
+      }
     } catch (e) {
       loaginDelegate!.showSnackbar("Error login $e");
     }
     loadinProvider!.updateBoolState(false);
+    return false;
   }
 }
